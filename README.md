@@ -190,3 +190,36 @@ impl Solution {
     }
 }
 ```
+
+## 509. 斐波那契数
+```Rust
+impl Solution {
+    pub fn fib(n: i32) -> i32 {
+        let mut cache = std::collections::HashMap::new();
+        return cacheFib(n, &mut cache);
+    }
+}
+
+pub fn cacheFib(n: i32, cache: &mut std::collections::HashMap<i32, i32>) -> i32 {
+        if n == 1 || n == 0 {
+            return n;
+        }
+        let mut n_one: i32;
+        if let Some(x) = cache.get(&(n - 1)) {
+            n_one = *x;
+        } else {
+            n_one = cacheFib(n - 1, cache);
+            cache.insert(n - 1, n_one);
+        }
+        let mut n_two: i32;
+        if let Some(x) = cache.get(&(n - 2)) {
+            n_two = *x;
+        } else {
+            n_two = cacheFib(n - 2, cache);
+            cache.insert(n - 2, n_two);
+        }
+
+        return n_one + n_two;
+}
+```
+    
