@@ -50,6 +50,63 @@ impl Solution {
 }
 ```
 
+## 18. 四数之和
+```Rust
+impl Solution {
+    pub fn four_sum(nums: Vec<i32>, target: i32) -> Vec<Vec<i32>> {
+       let mut res = vec![];
+        let len = nums.len();
+        let mut s_nums = nums.clone();
+        s_nums.sort();
+
+        if len < 4 {
+            return res;
+        }
+
+        for i in 0..(len - 3) {
+            if i > 0 && s_nums[i] == s_nums[i - 1] {
+                continue;
+            }
+
+            if target >= 0 && (target - s_nums[i] < 0) {
+                return res;
+            }
+
+            for j in (i + 1)..(len - 2) {
+                if j > (i + 1) && s_nums[j] == s_nums[j - 1] {
+                    continue;
+                }
+                if target >= 0 && (target - (s_nums[i] + s_nums[j]) < 0) {
+                    break;
+                }
+                let mut k = j + 1;
+                let mut l = len - 1;
+                while k < l {
+                    let sum = target - (s_nums[i] + s_nums[j] + s_nums[k] + s_nums[l]);
+                    if sum == 0 {
+                        res.push(vec![s_nums[i], s_nums[j], s_nums[k], s_nums[l]]);
+                        while k < l && s_nums[k] == s_nums[k + 1] {
+                            k += 1;
+                        }
+                        while k < l && s_nums[l] == s_nums[l - 1] {
+                            l -= 1;
+                        }
+                        k += 1;
+                        l -= 1;
+                    } else if sum > 0 {
+                        k += 1;
+                    } else {
+                        l -= 1;
+                    }
+                }
+            }
+        }
+
+        return res;
+    }
+}
+```
+
 
 ## 20. 有效的括号
 ```Rust
