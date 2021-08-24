@@ -1,6 +1,28 @@
 # leet-code-rust
 LeetCode in Rust
 
+## 1. 两数之和
+```Rust
+impl Solution {
+    pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
+        if nums.len() < 2 {
+            return vec![];
+        }
+
+        let mut cache = std::collections::HashMap::new();
+        for (i, x) in nums.iter().enumerate() {
+            let sub = target - *x;
+            if let Some(v) = cache.get(&sub) {
+                return vec![*v, i as i32];
+            }
+            cache.insert(*x, i as i32);
+        }
+
+        return vec![];
+    }
+}
+```
+
 ## 15. 三数之和
 ```Rust
 impl Solution {
@@ -151,6 +173,35 @@ impl Solution {
 
     pub fn max(a: i32, b: i32) -> i32 {
         return if a >= b { a } else { b };
+    }
+}
+```
+## 70. 爬楼梯
+```Rust
+impl Solution {
+   pub fn climb_stairs(n: i32) -> i32 {
+        let mut cache = std::collections::HashMap::new();
+        cache.insert(1, 1);
+        cache.insert(2, 2);
+        return Self::cache_climb_stairs(n, &mut cache);
+    }
+
+    pub fn cache_climb_stairs(n: i32, cache: &mut std::collections::HashMap<i32, i32>) -> i32 {
+        if n == 1 || n == 2 {
+            return *cache.get(&n).unwrap();
+        }
+        return Self::get_or_put(n - 1, cache) + Self::get_or_put(n - 2, cache);
+    }
+
+    pub fn get_or_put(n: i32, cache: &mut std::collections::HashMap<i32, i32>) -> i32 {
+        if let Some(x) = cache.get(&n) {
+            return *x;
+        } else {
+            let res =
+                Self::cache_climb_stairs(n - 1, cache) + Self::cache_climb_stairs(n - 2, cache);
+            cache.insert(n, res);
+            return res;
+        }
     }
 }
 ```
