@@ -1,6 +1,56 @@
 # leet-code-rust
 LeetCode in Rust
 
+## 15. 三数之和
+```Rust
+impl Solution {
+    pub fn three_sum(nums: Vec<i32>) -> Vec<Vec<i32>> {
+        let mut store = vec![];
+        let len = nums.len();
+
+        if len < 3 {
+            return store;
+        }
+
+        let mut s_nums = nums.clone();
+        s_nums.sort();
+
+        for i in 0..len {
+            if s_nums[i] > 0 {
+                return store;
+            }
+            if i > 0 && s_nums[i] == s_nums[i - 1] {
+                continue;
+            }
+
+            let mut j = i + 1;
+            let mut k = len - 1;
+
+            while j < k {
+                let sum = s_nums[i] + s_nums[j] + s_nums[k];
+                if sum == 0 {
+                    store.push(vec![s_nums[i], s_nums[j], s_nums[k]]);
+                    while j < k && s_nums[j] == s_nums[j + 1] {
+                        j += 1;
+                    }
+                    while j < k && s_nums[k] == s_nums[k - 1] {
+                        k -= 1;
+                    }
+                    j += 1;
+                    k -= 1;
+                } else if sum < 0 {
+                    j += 1;
+                } else {
+                    k -= 1;
+                }
+            }
+        }
+        return store;
+    }
+}
+```
+
+
 ## 20. 有效的括号
 ```Rust
 impl Solution {
