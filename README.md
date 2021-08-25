@@ -228,6 +228,31 @@ impl Solution {
 }
 ```
 
+## 322. 零钱兑换
+```Rust
+impl Solution {
+    pub fn coin_change(coins: Vec<i32>, amount: i32) -> i32 {
+        let amount_u = amount as usize;
+        let mut dp = vec![amount + 1; amount_u + 1];
+        dp[0] = 0;
+
+        for i in 1..=amount_u {
+            for j in 0..coins.len() {
+                if coins[j] <= i as i32 {
+                    dp[i] = Self::min(dp[i], dp[i - coins[j] as usize] + 1);
+                }
+            }
+        }
+
+        return if dp[amount_u] > amount { -1 } else { dp[amount_u] };
+    }
+
+    pub fn min(a: i32, b: i32) -> i32 {
+        return if a < b { a } else { b };
+    }
+}
+```
+
 ## 416. 分割等和子集
 ```Rust
 impl Solution {
