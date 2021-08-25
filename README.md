@@ -206,6 +206,28 @@ impl Solution {
 }
 ```
 
+## 167. 两数之和 II - 输入有序数组
+```Rust
+impl Solution {
+    pub fn two_sum(numbers: Vec<i32>, target: i32) -> Vec<i32> {
+        if numbers.len() < 2 {
+            return vec![];
+        }
+
+        let mut cache = std::collections::HashMap::new();
+        for (i, x) in numbers.iter().enumerate() {
+            let sub = target - *x;
+            if let Some(v) = cache.get(&sub) {
+                return vec![*v + 1, i as i32 + 1];
+            }
+            cache.insert(*x, i as i32);
+        }
+
+        return vec![];
+    }
+}
+```
+
 ## 416. 分割等和子集
 ```Rust
 impl Solution {
