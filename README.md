@@ -307,6 +307,38 @@ impl Solution {
     }
 }
 ```
+```Rust
+use std::collections::{LinkedList, HashMap};
+
+impl Solution {
+   pub fn next_greater_element(nums1: Vec<i32>, nums2: Vec<i32>) -> Vec<i32> {
+        let mut stack = LinkedList::new();
+        let mut mapping = HashMap::new();
+        stack.push_back(nums2[0]);
+
+        for x in 1..nums2.len() {
+            while !stack.is_empty() && nums2[x] > Self::peek(&mut stack).unwrap() {
+                mapping.insert(stack.pop_back().unwrap(), nums2[x]);
+            }
+            stack.push_back(nums2[x]);
+        }
+
+        let mut res = vec![-1; nums1.len()];
+        for x in 0..nums1.len() {
+            if let Some(n) = mapping.get(&nums1[x]) {
+                res[x] = *n;
+            }
+        }
+        return res;
+    }
+
+    pub fn peek(stack: &mut LinkedList<i32>) -> Option<i32> {
+        let v = stack.pop_back();
+        stack.push_back(v.unwrap());
+        return v;
+    }
+}
+```
 
 ## 509. 斐波那契数
 ```Rust
