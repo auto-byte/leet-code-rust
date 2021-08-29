@@ -289,6 +289,39 @@ impl Solution {
 }
 ```
 
+## 456. 132 模式
+```Rust
+use std::collections::LinkedList;
+
+impl Solution {
+    pub fn find132pattern(nums: Vec<i32>) -> bool {
+        let n = nums.len();
+        let mut candidate_k = LinkedList::new();
+        candidate_k.push_back(nums[n - 1]);
+        let mut max_k = i32::MIN;
+
+        for i in (0..=(n - 1)).rev() {
+            if nums[i] < max_k {
+                return true;
+            }
+            while !candidate_k.is_empty() && nums[i] > Self::peek(&mut candidate_k) {
+                max_k = candidate_k.pop_back().unwrap();
+            }
+            if nums[i] > max_k {
+                candidate_k.push_back(nums[i]);
+            }
+        }
+
+        return false;
+    }
+    pub fn peek(nums: &mut LinkedList<i32>) -> i32 {
+        let v = nums.pop_back().unwrap();
+        nums.push_back(v.clone());
+        return v;
+    }
+}
+```
+
 ## 496. 下一个更大元素 I
 ```Rust
 impl Solution {
