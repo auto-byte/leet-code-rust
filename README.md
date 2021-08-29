@@ -295,29 +295,20 @@ use std::collections::LinkedList;
 
 impl Solution {
     pub fn find132pattern(nums: Vec<i32>) -> bool {
-        let n = nums.len();
-        let mut candidate_k = LinkedList::new();
-        candidate_k.push_back(nums[n - 1]);
-        let mut max_k = i32::MIN;
+        let mut stack = vec![];
+        let mut k = i32::min_value();
 
-        for i in (0..=(n - 1)).rev() {
-            if nums[i] < max_k {
+        for num in nums.into_iter().rev() {
+            if k > num {
                 return true;
             }
-            while !candidate_k.is_empty() && nums[i] > Self::peek(&mut candidate_k) {
-                max_k = candidate_k.pop_back().unwrap();
+            while stack.len() > 0 && *stack.last().unwrap() < num {
+                k = stack.pop().unwrap();
             }
-            if nums[i] > max_k {
-                candidate_k.push_back(nums[i]);
-            }
+            stack.push(num);
         }
-
-        return false;
-    }
-    pub fn peek(nums: &mut LinkedList<i32>) -> i32 {
-        let v = nums.pop_back().unwrap();
-        nums.push_back(v.clone());
-        return v;
+        
+        false
     }
 }
 ```
