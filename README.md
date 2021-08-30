@@ -206,6 +206,27 @@ impl Solution {
 }
 ```
 
+## 112. 路径总和
+```Rust
+use std::rc::Rc;
+use std::cell::RefCell;
+impl Solution {
+    pub fn has_path_sum(root: Option<Rc<RefCell<TreeNode>>>, target_sum: i32) -> bool {
+        match root {
+            None => false,
+            Some(root) => {
+                let node = root.borrow();
+                match (&node.left, &node.right) {
+                    (None, None) => node.val == target_sum,
+                    _ => Solution::has_path_sum(node.left.clone(), target_sum - node.val)
+                         || Solution::has_path_sum(node.right.clone(), target_sum - node.val),
+                }
+            }
+        }
+    }
+}
+```
+
 ## 167. 两数之和 II - 输入有序数组
 ```Rust
 impl Solution {
