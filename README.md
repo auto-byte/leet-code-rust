@@ -349,6 +349,22 @@ impl Solution {
 }
 ```
 
+## 461. 汉明距离
+```Rust
+impl Solution {
+    pub fn hamming_distance(x: i32, y: i32) -> i32 {
+        let mut v = x ^ y;
+        let mut count = 0;
+
+        while v > 0 {
+            count += v & 1;
+            v = v >> 1;
+        }
+
+        count
+    }
+}
+```
 ## 496. 下一个更大元素 I
 ```Rust
 impl Solution {
