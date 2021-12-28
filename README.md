@@ -274,6 +274,21 @@ impl Solution {
 }
 ```
 
+## 338. 比特位计数
+```Rust
+impl Solution {
+    pub fn count_bits(n: i32) -> Vec<i32> {
+        let mut counter = vec![0; (n + 1) as usize];
+
+        for i in 0..=n as usize {
+            counter[i] = counter[i >> 1] + (i as i32 & 1);
+        }
+
+        counter
+    }
+}
+```
+
 ## 416. 分割等和子集
 ```Rust
 impl Solution {
