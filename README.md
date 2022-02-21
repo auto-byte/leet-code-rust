@@ -205,7 +205,38 @@ impl Solution {
     }
 }
 ```
+## 101. 对称二叉树
+```rust
+use std::cell::RefCell;
+use std::rc::Rc;
 
+type Node = Option<Rc<RefCell<TreeNode>>>;
+
+impl Solution {
+    pub fn is_symmetric(root: Option<Rc<RefCell<TreeNode>>>) -> bool {
+        let node = root.as_ref().unwrap().borrow_mut();
+        return Self::diff(node.left.clone(), node.right.clone());
+    }
+
+    fn diff(left: Node, right: Node) -> bool {
+        if left.is_none() && right.is_none() {
+            return true;
+        }
+        if left.is_none() || right.is_none() {
+            return false;
+        }
+
+        let left = left.as_ref().unwrap().borrow_mut();
+        let right = right.as_ref().unwrap().borrow_mut();
+        if left.val != right.val {
+            return false;
+        }
+
+        return Self::diff(left.left.clone(), right.right.clone())
+            && Self::diff(left.right.clone(), right.left.clone());
+    }
+}
+```
 ## 112. 路径总和
 ```Rust
 use std::rc::Rc;
@@ -245,6 +276,23 @@ impl Solution {
         }
 
         return vec![];
+    }
+}
+```
+
+## 234. 回文链表
+```rust
+impl Solution {
+    pub fn is_palindrome(head: Option<Box<ListNode>>) -> bool {
+        let arr: Vec<i32> = (*head.unwrap()).into();
+        let len = arr.len();
+        for i in 0..len / 2 {
+            if arr[i] != arr[len - 1 - i] {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
 ```
@@ -447,4 +495,29 @@ pub fn cacheFib(n: i32, cache: &mut std::collections::HashMap<i32, i32>) -> i32 
         return n_one + n_two;
 }
 ```
-    
+
+## 617. 合并二叉树
+```rust
+use std::cell::RefCell;
+use std::rc::Rc;
+
+impl Solution {
+    pub fn merge_trees(
+        root1: Option<Rc<RefCell<TreeNode>>>,
+        root2: Option<Rc<RefCell<TreeNode>>>,
+    ) -> Option<Rc<RefCell<TreeNode>>> {
+        match (root1, root2) {
+            (None, None) => None,
+            (Some(x), None) => Some(x.clone()),
+            (None, Some(x)) => Some(x.clone()),
+            (Some(x), Some(y)) => match (x.borrow_mut(), y.borrow_mut()) {
+                (mut xr, mut yr) => Some(Rc::new(RefCell::new(TreeNode {
+                    val: xr.val + yr.val,
+                    left: Self::merge_trees(xr.left.take(), yr.left.take()),
+                    right: Self::merge_trees(xr.right.take(), yr.right.take()),
+                }))),
+            },
+        }
+    }
+}
+```
