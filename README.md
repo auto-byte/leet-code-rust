@@ -304,6 +304,22 @@ impl Solution {
 }
 ```
 
+## 168. Excel表列名称
+```rust
+impl Solution {
+    pub fn convert_to_title(column_number: i32) -> String {
+        let mut num: i32 = column_number;
+        let mut vec: Vec<char> = vec![];
+        while num > 0 {
+            num -= 1;
+            vec.push(((num % 26 + 65) as u8) as char);
+            num /= 26;
+        }
+        vec.iter().rev().collect::<String>()
+    }
+}
+```
+
 ## 234. 回文链表
 ```rust
 impl Solution {

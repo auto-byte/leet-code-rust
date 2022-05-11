@@ -6,6 +6,7 @@ mod merge_trees;
 mod find_disappeared_numbers;
 mod diameter_of_binary_tree;
 mod my_sqrt;
+mod convert_to_title;
 
 use std::cell::RefCell;
 use std::rc::Rc;
