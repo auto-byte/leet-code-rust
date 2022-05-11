@@ -1,9 +1,11 @@
 #![allow(dead_code)]
+mod template;
 mod is_palindrome;
 mod is_symmetric;
 mod merge_trees;
 mod find_disappeared_numbers;
 mod diameter_of_binary_tree;
+mod my_sqrt;
 
 use std::cell::RefCell;
 use std::rc::Rc;
