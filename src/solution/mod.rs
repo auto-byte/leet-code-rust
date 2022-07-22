@@ -1,13 +1,14 @@
 #![allow(dead_code)]
-mod template;
-mod is_palindrome;
-mod is_symmetric;
-mod is_subsequence;
-mod merge_trees;
-mod find_disappeared_numbers;
-mod diameter_of_binary_tree;
-mod my_sqrt;
+mod appeal_sum;
 mod convert_to_title;
+mod diameter_of_binary_tree;
+mod find_disappeared_numbers;
+mod is_palindrome;
+mod is_subsequence;
+mod is_symmetric;
+mod merge_trees;
+mod my_sqrt;
+mod template;
 
 use std::cell::RefCell;
 use std::rc::Rc;
