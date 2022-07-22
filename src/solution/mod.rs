@@ -2,6 +2,7 @@
 mod template;
 mod is_palindrome;
 mod is_symmetric;
+mod is_subsequence;
 mod merge_trees;
 mod find_disappeared_numbers;
 mod diameter_of_binary_tree;

@@ -377,6 +377,31 @@ impl Solution {
 }
 ```
 
+## 392. 判断子序列
+```Rust
+impl Solution {
+    pub fn is_subsequence(s: String, t: String) -> bool {
+        if s == t {
+            return true;
+        }
+
+        let (mut ps, mut pt) = (0, 0);
+        let s = s.chars().collect::<Vec<_>>();
+        let t = t.chars().collect::<Vec<_>>();
+
+        while ps < s.len() && pt < t.len() {
+            ps += if s[ps] == t[pt] { 1 } else { 0 };
+            pt += 1;
+        }
+
+        ps == s.len()
+    }
+}
+
+```
+
+
+
 ## 416. 分割等和子集
 ```Rust
 impl Solution {
