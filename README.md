@@ -586,3 +586,23 @@ impl Solution {
     }
 }
 ```
+
+## 2262. 字符串的总引力
+```Rust
+impl Solution {
+    fn appeal_sum(s: String) -> i64 {
+        let len = s.len();
+        let chars = s.chars().collect::<Vec<_>>();
+        let mut count: Vec<i64> = vec![-1; 26];
+        let mut sum: i64 = 0;
+
+        for i in 0..len {
+            let a = (chars[i] as i64) - ('a' as i64);
+            sum += ((i as i64) - count[a as usize]) * ((len - i) as i64);
+            count[a as usize] = i as i64;
+        }
+
+        return sum;
+    }
+}
+```
