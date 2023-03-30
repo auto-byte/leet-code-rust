@@ -320,6 +320,46 @@ impl Solution {
 }
 ```
 
+227. 基本计算器 II
+```rust
+impl Solution {
+    pub fn calculate(s: String) -> i32 {
+        let mut stack = Vec::new();
+
+        let mut value = 0;
+        let mut step: usize = 0;
+        let len = s.len();
+        let mut operate = b'+';
+
+        for ele in s.into_bytes() {
+            if ele >= b'0' && ele <= b'9' {
+                value = value * 10 + (ele - b'0') as i32;
+            }
+
+            if step == len - 1 || !(ele >= b'0' && ele <= b'9') && ele != b' ' {
+                if operate == b'+' {
+                    stack.push(value);
+                } else if operate == b'-' {
+                    stack.push(-value);
+                } else if operate == b'*' {
+                    let top = stack.pop().unwrap();
+                    stack.push(top * value);
+                } else if operate == b'/' {
+                    let top = stack.pop().unwrap();
+                    stack.push(top / value);
+                }
+                operate = ele;
+                value = 0;
+            }
+
+            step += 1;
+        }
+
+        stack.iter().sum()
+    }
+}
+```
+
 ## 234. 回文链表
 ```rust
 impl Solution {
