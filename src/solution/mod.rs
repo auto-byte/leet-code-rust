@@ -9,6 +9,8 @@ mod is_symmetric;
 mod merge_trees;
 mod my_sqrt;
 mod template;
+mod min_eating_speed;
+mod remove_duplicates;
 
 use std::cell::RefCell;
 use std::rc::Rc;
